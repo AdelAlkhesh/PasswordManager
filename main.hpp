@@ -4,7 +4,6 @@
 #include <vector>
 #include <iomanip>
 
-
 using std::cin;
 using std::cout;
 using std::endl;
@@ -14,8 +13,8 @@ using std::setw;
 using std::string;
 using std::vector;
 
-
-void SaveToFile(string path, string username, string password, string accountName);
+void SaveToFile(string path, string username, string password,
+                string accountName);
 
 string ReadFile(string path);
 
