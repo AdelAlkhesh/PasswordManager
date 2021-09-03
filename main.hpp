@@ -21,3 +21,7 @@ string ReadFile(string path);
 void signUp();
 
 void Welcome();
+
+void PassGenerate();
+
+void storePassword(string password);
