@@ -4,6 +4,7 @@
 #include <vector>
 #include <iomanip>
 #include <stdlib.h>
+#include <limits>
 
 using std::cin;
 using std::cout;
@@ -28,7 +29,7 @@ void PassGenerate();
 
 void StorePassword(string password);
 
-void MainMenue();
+void MainMenu();
 
 void Choices();
 

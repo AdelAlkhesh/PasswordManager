@@ -15,7 +15,7 @@ void SaveToFile(string path, string email, string password,
   cout << "Returning to main menu" << endl;
   cout << endl;
   cout << endl;
-  MainMenue();
+  MainMenu();
 }
 
 void ReadFile() {
@@ -29,7 +29,7 @@ void ReadFile() {
   my_file.close();
   cout << endl;
   cout << endl;
-  MainMenue();
+  MainMenu();
 }
 
 void SignUp() {
@@ -56,7 +56,7 @@ void StorePassword(string password) {
   cout << "Returning to main menu" << endl;
   cout << endl;
   cout << endl;
-  MainMenue();
+  MainMenu();
 }
 
 void PassGenerate() {
@@ -85,7 +85,7 @@ void PassGenerate() {
   } else {
     cout << endl;
     cout << endl;
-    MainMenue();
+    MainMenu();
   }
 }
 
@@ -96,7 +96,6 @@ void Choices() {
   cout << "2. Search" << endl;
   cout << "3. Generate Password" << endl;
   cout << "4. View Data File" << endl;
-  cout << "5. Exit Password Manager" << endl;
   cin >> choice;
   if (choice == "1") {
     cout << endl;
@@ -114,8 +113,6 @@ void Choices() {
     cout << endl;
     cout << endl;
     ReadFile();
-  } else if (choice == "5") {
-    exit;
   } else {
     cout << "Invalid input, try again" << endl;
     cout << endl;
@@ -124,10 +121,10 @@ void Choices() {
   }
 }
 
-void MainMenue() {
+void MainMenu() {
 
   cout << "-------------------------------" << endl;
-  cout << "          MAIN MENUE" << endl;
+  cout << "          MAIN MENU" << endl;
   cout << "-------------------------------" << endl;
   Choices();
 }
@@ -135,7 +132,7 @@ void MainMenue() {
 void ProgramStart() {
   ifstream file_exist("accounts.txt");
   if (file_exist) {
-    MainMenue();
+    MainMenu();
   } else {
     ofstream my_file("accounts.txt");
 
@@ -144,7 +141,7 @@ void ProgramStart() {
               << "EMAIL" << setw(25) << "PASSWORD";
       my_file << endl;
       my_file << endl;
-      MainMenue();
+      MainMenu();
     }
     my_file.close();
   }
@@ -177,14 +174,14 @@ void SearchFile(string query) {
     } else if (choice == "2") {
       cout << endl;
       cout << endl;
-      MainMenue();
+      MainMenu();
     } else if (choice == "3") {
       exit;
     } else {
       cout << "Invalid input... returning to main menu" << endl;
       cout << endl;
       cout << endl;
-      MainMenue();
+      MainMenu();
     }
   }
   my_file.close();
@@ -193,10 +190,11 @@ void SearchFile(string query) {
 void Search() {
   string query;
   cout << "What would you like to search for?" << endl;
+  cin.clear();
+  cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
   getline(cin, query);
   cout << endl;
   cout << endl;
   cout << "Search results:" << endl;
-  cout << endl;
   SearchFile(query);
 }
