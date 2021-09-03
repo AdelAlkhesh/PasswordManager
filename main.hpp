@@ -3,25 +3,35 @@
 #include <string>
 #include <vector>
 #include <iomanip>
+#include <stdlib.h>
 
 using std::cin;
 using std::cout;
 using std::endl;
+using std::exit;
 using std::ifstream;
 using std::ofstream;
 using std::setw;
 using std::string;
-using std::vector;
+using std::toupper;
 
 void SaveToFile(string path, string username, string password,
                 string accountName);
 
-string ReadFile(string path);
+void ReadFile();
 
-void signUp();
+void SignUp();
 
-void Welcome();
+void ProgramStart();
 
 void PassGenerate();
 
-void storePassword(string password);
+void StorePassword(string password);
+
+void MainMenue();
+
+void Choices();
+
+void SearchFile(string query);
+
+void Search();

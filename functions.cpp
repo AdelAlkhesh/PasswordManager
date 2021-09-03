@@ -1,6 +1,7 @@
 #include "main.hpp"
 
-void SaveToFile(string path, string email, string password, string accountName) {
+void SaveToFile(string path, string email, string password,
+                string accountName) {
   ofstream my_file;
   my_file.open(path, std::ios_base::app);
 
@@ -10,10 +11,15 @@ void SaveToFile(string path, string email, string password, string accountName) 
     my_file << endl;
   }
   my_file.close();
+  cout << "Data saved successfully!" << endl;
+  cout << "Returning to main menu" << endl;
+  cout << endl;
+  cout << endl;
+  MainMenue();
 }
 
-string ReadFile(string path) {
-  ifstream my_file(path);
+void ReadFile() {
+  ifstream my_file("accounts.txt");
   string line;
   if (my_file) {
     while (getline(my_file, line)) {
@@ -21,11 +27,14 @@ string ReadFile(string path) {
     }
   }
   my_file.close();
-  return line;
+  cout << endl;
+  cout << endl;
+  MainMenue();
 }
 
-void signUp() {
+void SignUp() {
   string email, password, accountName;
+  string choice;
   cout << "Enter an email:" << endl;
   cin >> email;
   cout << "Enter a password:" << endl;
@@ -36,31 +45,18 @@ void signUp() {
   SaveToFile("accounts.txt", email, password, accountName);
 }
 
-void Welcome() {
-  ifstream file_exist("accounts.txt");
-  if (file_exist) {
-    signUp();
-  } else {
-    ofstream my_file("accounts.txt");
-
-    if (my_file) {
-      my_file << setw(25) << std::left << "ACCOUNT" << setw(30) << std::left
-              << "EMAIL" << setw(25) << "PASSWORD";
-      my_file << endl;
-      my_file << endl;
-      signUp();
-    }
-    my_file.close();
-  }
-}
-
-void storePassword(string password) {
+void StorePassword(string password) {
   string email, accountName;
   cout << "Enter an email:" << endl;
   cin >> email;
   cout << "Enter an account name:" << endl;
   cin >> accountName;
   SaveToFile("accounts.txt", email, password, accountName);
+  cout << "Data saved successfully!" << endl;
+  cout << "Returning to main menu" << endl;
+  cout << endl;
+  cout << endl;
+  MainMenue();
 }
 
 void PassGenerate() {
@@ -79,12 +75,128 @@ void PassGenerate() {
   string answer;
   cout << password << endl;
   cout << endl;
+  cout << endl;
   cout << "Would you like to store this password?(Y/N)" << endl;
   cin >> answer;
-  if (answer == "Y")
-  {
-    storePassword(password);
+  if (answer == "Y") {
+    cout << endl;
+    cout << endl;
+    StorePassword(password);
+  } else {
+    cout << endl;
+    cout << endl;
+    MainMenue();
   }
- 
 }
 
+void Choices() {
+  string choice;
+  cout << "What would you like me to do?" << endl;
+  cout << "1. Store New Account Info" << endl;
+  cout << "2. Search" << endl;
+  cout << "3. Generate Password" << endl;
+  cout << "4. View Data File" << endl;
+  cout << "5. Exit Password Manager" << endl;
+  cin >> choice;
+  if (choice == "1") {
+    cout << endl;
+    cout << endl;
+    SignUp();
+  } else if (choice == "2") {
+    cout << endl;
+    cout << endl;
+    Search();
+  } else if (choice == "3") {
+    cout << endl;
+    cout << endl;
+    PassGenerate();
+  } else if (choice == "4") {
+    cout << endl;
+    cout << endl;
+    ReadFile();
+  } else if (choice == "5") {
+    exit;
+  } else {
+    cout << "Invalid input, try again" << endl;
+    cout << endl;
+    cout << endl;
+    Choices();
+  }
+}
+
+void MainMenue() {
+
+  cout << "-------------------------------" << endl;
+  cout << "          MAIN MENUE" << endl;
+  cout << "-------------------------------" << endl;
+  Choices();
+}
+
+void ProgramStart() {
+  ifstream file_exist("accounts.txt");
+  if (file_exist) {
+    MainMenue();
+  } else {
+    ofstream my_file("accounts.txt");
+
+    if (my_file) {
+      my_file << setw(25) << std::left << "ACCOUNT" << setw(30) << std::left
+              << "EMAIL" << setw(25) << "PASSWORD";
+      my_file << endl;
+      my_file << endl;
+      MainMenue();
+    }
+    my_file.close();
+  }
+}
+
+void SearchFile(string query) {
+  ifstream my_file("accounts.txt");
+  string line;
+  bool found = false;
+  if (my_file) {
+    while (getline(my_file, line)) {
+      if (line.find(query) != string::npos) {
+        found = true;
+        cout << line << endl;
+      }
+    }
+    if (!found) {
+      cout << "Item Not found" << endl;
+    }
+    cout << endl;
+    cout << endl;
+    string choice;
+    cout << "What would you like to do?" << endl;
+    cout << "1. Search for another item" << endl;
+    cout << "2. Return to main menu" << endl;
+    cout << "3. Exit Password Manager" << endl;
+    cin >> choice;
+    if (choice == "1") {
+      Search();
+    } else if (choice == "2") {
+      cout << endl;
+      cout << endl;
+      MainMenue();
+    } else if (choice == "3") {
+      exit;
+    } else {
+      cout << "Invalid input... returning to main menu" << endl;
+      cout << endl;
+      cout << endl;
+      MainMenue();
+    }
+  }
+  my_file.close();
+}
+
+void Search() {
+  string query;
+  cout << "What would you like to search for?" << endl;
+  getline(cin, query);
+  cout << endl;
+  cout << endl;
+  cout << "Search results:" << endl;
+  cout << endl;
+  SearchFile(query);
+}
